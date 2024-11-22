@@ -1,11 +1,50 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-</module>
+import java.util.Objects;
+
+public class Book {
+    private String title;
+    private String author;
+    private String isbn;
+    private int yearPublished;
+
+    public Book(String title, String author, String isbn, int yearPublished) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.yearPublished = yearPublished;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getAuthor() {
+        return this.author;
+    }
+
+    public String getIsbn() {
+        return this.isbn;
+    }
+
+    public int getYearPublished() {
+        return this.yearPublished;
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (o != null && this.getClass() == o.getClass()) {
+            Book book = (Book)o;
+            return Objects.equals(this.isbn, book.isbn);
+        } else {
+            return false;
+        }
+    }
+
+    public int hashCode() {
+        return Objects.hash(new Object[]{this.isbn});
+    }
+
+    public String toString() {
+        return "Book{title='" + this.title + "', author='" + this.author + "', isbn='" + this.isbn + "', yearPublished=" + this.yearPublished + "}";
+    }
+}
