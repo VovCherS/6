@@ -1,11 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-</module>
+public class LibraryManagement {
+    public LibraryManagement() {
+    }
+
+    public static void main(String[] args) {
+        Library library = new Library();
+        Book book1 = new Book("Java Programming", "John Doe", "12345", 2015);
+        Book book2 = new Book("Advanced Java", "Jane Smith", "67890", 2018);
+        Book book3 = new Book("Introduction to Algorithms", "Thomas H. Cormen", "11111", 2009);
+        Book book4 = new Book("Java Programming", "Alice Johnson", "22222", 2020);
+        library.addBook(book1);
+        library.addBook(book2);
+        library.addBook(book3);
+        library.addBook(book4);
+        library.printAllBooks();
+        System.out.println("\nПоиск книги с ISBN 12345:");
+        Book foundBook = library.findBookByIsbn("12345");
+        System.out.println(foundBook != null ? foundBook : "Книга не найдена");
+        System.out.println("\nПоиск книг с названием 'Java':");
+        Set<Book> foundBooks = library.findBooksByTitle("Java");
+        Iterator var8 = foundBooks.iterator();
+
+        while(var8.hasNext()) {
+            Book book = (Book)var8.next();
+            System.out.println(book);
+        }
+
+        System.out.println("\nУдаление книги с ISBN 12345:");
+        library.removeBook("12345");
+        library.printAllBooks();
+    }
+}
