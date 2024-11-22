@@ -1,11 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-</module>
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class Library {
+    private Map<String, Book> booksByIsbn = new HashMap();
+    private TreeSet<Book> booksByTitle = new TreeSet(Comparator.comparing(Book::getTitle));
+
+    public Library() {
+    }
+
+    public void addBook(Book book) {
+        if (this.booksByIsbn.containsKey(book.getIsbn())) {
+            System.out.println("Книга с таким ISBN уже существует.");
+        } else {
+            this.booksByIsbn.put(book.getIsbn(), book);
+            this.booksByTitle.add(book);
+            System.out.println("Книга добавлена: " + book);
+        }
+    }
+
+    public void removeBook(String isbn) {
+        Book book = (Book)this.booksByIsbn.remove(isbn);
+        if (book != null) {
+            this.booksByTitle.remove(book);
+            System.out.println("Книга удалена: " + book);
+        } else {
+            System.out.println("Книга с таким ISBN не найдена.");
+        }
+
+    }
+
+    public Book findBookByIsbn(String isbn) {
+        return (Book)this.booksByIsbn.get(isbn);
+    }
+
+    public Set<Book> findBooksByTitle(String title) {
+        Set<Book> matchingBooks = new HashSet();
+        Iterator var3 = this.booksByTitle.iterator();
+
+        while(var3.hasNext()) {
+            Book book = (Book)var3.next();
+            if (book.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                matchingBooks.add(book);
+            }
+        }
+
+        return matchingBooks;
+    }
